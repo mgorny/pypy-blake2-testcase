@@ -1,7 +1,6 @@
 #!/usr/bin/env pypy
 
 import io
-import multiprocessing
 import pyblake2
 
 bufsize = 4096
@@ -12,13 +11,7 @@ def sub(i):
     with io.open('test.txt', 'rb') as f:
         for block in iter(lambda: f.read(bufsize), b''):
             cs.update(block)
-    assert cs.hexdigest() == sum
+    assert cs.hexdigest() == sum, i
 
-def gen():
-    for i in range(10000):
-        yield i
-
-p = multiprocessing.Pool()
-for x in p.imap_unordered(sub, gen(), chunksize=32):
+for x in map(sub, range(10000)):
     pass
-p.close()
