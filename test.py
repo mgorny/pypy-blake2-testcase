@@ -15,7 +15,7 @@ def sub(i):
     assert cs.hexdigest() == sum
 
 def gen():
-    for i in xrange(100000):
+    for i in xrange(10000):
         yield i
 
 p = multiprocessing.Pool()
