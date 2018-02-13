@@ -47,7 +47,27 @@ static PyMethodDef TestModMethods[] = {
 	{NULL, NULL, 0, NULL}
 };
 
+#if PY_MAJOR_VERSION >= 3
+
+static struct PyModuleDef moduledef = {
+	PyModuleDef_HEAD_INIT,
+	"testmod",
+	NULL,
+	0,
+	TestModMethods,
+	NULL
+};
+
+PyMODINIT_FUNC PyInit_testmod()
+{
+	return PyModule_Create(&moduledef);
+}
+
+#else
+
 PyMODINIT_FUNC inittestmod()
 {
 	Py_InitModule("testmod", TestModMethods);
 }
+
+#endif
