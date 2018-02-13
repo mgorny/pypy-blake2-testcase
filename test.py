@@ -4,7 +4,15 @@ import io
 import pyblake2
 
 bufsize = 4096
-sum = 'ccefcd101b08863339602f7fdf2edd1d77ef05a970c36dbd7a560d33f957f81b15cfcac10114f8fca0d7c318b6aaa294220e3fcf4f88e6e3bd7840f121ff3b65'
+sum = '1df7d36272ba434fcca83c917352368916021ab12494dbc24a8352419b74c62948cf3cd04bd9c702ead677620e7b2ab9b0d870d2af96b745c456892e5a66d23a'
+
+with io.open('test.txt', 'wb') as f:
+    data = b''
+    for x in range(14):
+        data += b'%x' % x
+    for x in range(18):
+        data += data
+    f.write(data)
 
 def sub(i):
     cs = pyblake2.blake2b()
